@@ -1,4 +1,4 @@
- 
+'''
 from __future__ import print_function
 import os
 import matplotlib.pyplot as plt
@@ -6,22 +6,28 @@ import tensorflow as tf
 from PIL import Image
 import numpy
 import tensorflow as tf
+'''
+ 
+#include <tensorflow/core/platform/env.h>
+#include <tensorflow/core/public/session.h>
+
+#include <iostream>
 
 using namespace tensorflow;
 
 # Import MNIST data
-from tensorflow.examples.tutorials.mnist import input_data
+#from tensorflow.examples.tutorials.mnist import input_data
 
 # Parameters
-learning_rate = 0.001
-training_iters = 3000
-batch_size = 10
-display_step = 2
+float learning_rate = 0.001
+int training_iters = 3000
+int batch_size = 10
+int display_step = 2
 
 # Network Parameters
-n_input = 128*128 # MNIST data input (img shape: 28*28)
-n_classes = 10 # MNIST total classes (0-9 digits)
-dropout = 0.75 # Dropout, probability to keep units
+int n_input = 128*128 # MNIST data input (img shape: 28*28)
+int n_classes = 10 # MNIST total classes (0-9 digits)
+float dropout = 0.75 # Dropout, probability to keep units
 
 # tf Graph input
 auto root = tensorflow::Scope::NewRootScope();
@@ -39,7 +45,7 @@ auto y = Placeholder(root.WithOpName("input"), DataType::FLOAT);
 def conv2d(x, W, b, strides=1):
     # Conv2D wrapper, with bias and relu activation
     x = tf.nn.conv2d(x, W, strides=[1, strides, strides, 1], padding='SAME')
-    auto x = Output conv_op = Conv2D(root.WithOpName("output"), x, W, {1, strides, strides, 1}, "SAME");
+    auto x = Conv2D(root.WithOpName("output"), x, W, {1, strides, strides, 1}, "SAME");
     #x = tf.nn.bias_add(x, b)
     BiasAdd(scope,x,b);
     #return tf.nn.relu(x)
